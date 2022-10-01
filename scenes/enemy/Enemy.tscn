@@ -1,0 +1,128 @@
+[gd_scene load_steps=10 format=3 uid="uid://b1yy5civq61ss"]
+
+[ext_resource type="Script" path="res://scenes/enemy/Timer.gd" id="1_gexk5"]
+[ext_resource type="Script" path="res://scenes/enemy/Enemy.gd" id="1_h8ed6"]
+[ext_resource type="PackedScene" uid="uid://dn3gmvoqaq15w" path="res://scenes/launcher/Launcher.tscn" id="3_iolqd"]
+[ext_resource type="PackedScene" uid="uid://blovdjxkd0yhe" path="res://scenes/laser/Laser.tscn" id="4_a7kuc"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jxvcj"]
+albedo_color = Color(0.584314, 0.752941, 0.752941, 1)
+metallic = 0.76
+roughness = 0.12
+emission_enabled = true
+emission = Color(0.364706, 0.364706, 0.364706, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_x6agp"]
+albedo_color = Color(1, 0.266667, 0.552941, 1)
+metallic = 0.45
+roughness = 0.27
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3ce3h"]
+albedo_color = Color(1, 0.454902, 0, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1fvov"]
+albedo_color = Color(1, 0.454902, 0, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_xty0g"]
+size = Vector3(1.153, 0.516, 1.625)
+
+[node name="Enemy" type="RigidBody3D"]
+angular_damp = 5.0
+script = ExtResource("1_h8ed6")
+
+[node name="CsgCombiner3d3" type="CSGCombiner3D" parent="."]
+
+[node name="CsgCombiner3d2" type="CSGCombiner3D" parent="CsgCombiner3d3"]
+
+[node name="CsgSphere3d" type="CSGSphere3D" parent="CsgCombiner3d3/CsgCombiner3d2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.162254, -0.278734)
+radial_segments = 20
+rings = 15
+material = SubResource("StandardMaterial3D_jxvcj")
+
+[node name="CsgBox3d" type="CSGBox3D" parent="CsgCombiner3d3/CsgCombiner3d2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.707994, -0.263622)
+operation = 2
+
+[node name="CsgCombiner3d" type="CSGCombiner3D" parent="CsgCombiner3d3"]
+material_override = SubResource("StandardMaterial3D_x6agp")
+
+[node name="CsgBox3d" type="CSGBox3D" parent="CsgCombiner3d3/CsgCombiner3d"]
+size = Vector3(1.339, 0.465, 1.823)
+
+[node name="CsgBox3d2" type="CSGBox3D" parent="CsgCombiner3d3/CsgCombiner3d"]
+transform = Transform3D(1, 0, 0, 0, 0.985821, 0.167801, 0, -0.167801, 0.985821, 0, 0.176589, -0.491193)
+operation = 2
+size = Vector3(1.339, 0.465, 1.823)
+
+[node name="CsgBox3d3" type="CSGBox3D" parent="CsgCombiner3d3/CsgCombiner3d"]
+transform = Transform3D(0.692143, 0.72176, 0, -0.72176, 0.692143, 0, 0, 0, 1, 0.446262, 0.379465, 0)
+operation = 2
+size = Vector3(1.24868, 0.465, 1.93909)
+
+[node name="CsgBox3d4" type="CSGBox3D" parent="CsgCombiner3d3/CsgCombiner3d"]
+transform = Transform3D(0.694658, -0.71934, 0, 0.71934, 0.694658, 0, 0, 0, 1, -0.392471, 0.366341, 0.00591815)
+operation = 2
+size = Vector3(1.24868, 0.465, 1.93909)
+
+[node name="CsgBox3d5" type="CSGBox3D" parent="CsgCombiner3d3/CsgCombiner3d"]
+transform = Transform3D(0.771625, 0, 0.636078, 0, 1, 0, -0.636078, 0, 0.771625, 0.725962, 0, -1.004)
+operation = 2
+
+[node name="CsgBox3d6" type="CSGBox3D" parent="CsgCombiner3d3/CsgCombiner3d"]
+transform = Transform3D(0.771625, 0, 0.636078, 0, 1, 0, -0.636078, 0, 0.771625, -0.687925, 0.0019834, -0.999051)
+operation = 2
+
+[node name="CsgCombiner3d3" type="CSGCombiner3D" parent="CsgCombiner3d3"]
+
+[node name="CsgCylinder3d" type="CSGCylinder3D" parent="CsgCombiner3d3/CsgCombiner3d3"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -0.238683, -0.0637349, 0.984802)
+radius = 0.1
+height = 0.2
+material = SubResource("StandardMaterial3D_3ce3h")
+
+[node name="CsgCylinder3d2" type="CSGCylinder3D" parent="CsgCombiner3d3/CsgCombiner3d3"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0.288639, -0.0637349, 0.984802)
+radius = 0.1
+height = 0.2
+material = SubResource("StandardMaterial3D_1fvov")
+
+[node name="OmniLight3d" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.229511, -0.0525627, 1.16973)
+light_color = Color(1, 0.698039, 0.176471, 1)
+omni_range = 3.0
+
+[node name="OmniLight3d2" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.307935, -0.0525627, 1.16973)
+light_color = Color(1, 0.647059, 0.152941, 1)
+omni_range = 3.0
+
+[node name="SpotLight3d" type="SpotLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.23066, -0.92054)
+light_energy = 2.5
+spot_range = 20.0
+spot_angle = 30.0
+
+[node name="OmniLight3d3" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0249708, 0.610787, -0.246547)
+light_color = Color(0.580392, 1, 1, 1)
+
+[node name="OmniLight3d4" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.351679, 0.678232)
+light_color = Color(1, 0.0196078, 0, 1)
+light_energy = 2.333
+omni_range = 10.0
+
+[node name="Timer" type="Timer" parent="OmniLight3d4"]
+wait_time = 0.5
+autostart = true
+script = ExtResource("1_gexk5")
+
+[node name="Weapons" type="Node3D" parent="."]
+
+[node name="Launcher" parent="Weapons" instance=ExtResource("3_iolqd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.208928, -1.04688)
+projectile = ExtResource("4_a7kuc")
+
+[node name="CollisionShape3d" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_xty0g")

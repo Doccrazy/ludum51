@@ -1,0 +1,121 @@
+[gd_scene load_steps=14 format=3 uid="uid://dgjh4qkfxk3sr"]
+
+[ext_resource type="Texture2D" uid="uid://b5dpa7jf68644" path="res://assets/panorama_image.png" id="1_1xr12"]
+[ext_resource type="Script" path="res://scripts/Player.gd" id="2_g8n0y"]
+[ext_resource type="PackedScene" uid="uid://dn3gmvoqaq15w" path="res://scenes/launcher/Launcher.tscn" id="3_f3w0b"]
+[ext_resource type="Script" path="res://scripts/Camera.gd" id="3_os7xn"]
+[ext_resource type="PackedScene" uid="uid://blovdjxkd0yhe" path="res://scenes/laser/Laser.tscn" id="4_ikoec"]
+[ext_resource type="Script" path="res://scripts/FPSCounter.gd" id="4_r6i1x"]
+[ext_resource type="PackedScene" uid="uid://b1yy5civq61ss" path="res://scenes/enemy/Enemy.tscn" id="5_or85d"]
+[ext_resource type="Script" path="res://scripts/Spawner.gd" id="6_s31hl"]
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_34034"]
+panorama = ExtResource("1_1xr12")
+
+[sub_resource type="Sky" id="Sky_wlonh"]
+sky_material = SubResource("PanoramaSkyMaterial_34034")
+
+[sub_resource type="Environment" id="Environment_kwuor"]
+background_mode = 2
+sky = SubResource("Sky_wlonh")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ajx1y"]
+size = Vector3(0.965, 0.647, 1.606)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_i5rua"]
+size = Vector3(1.45147, 1.71653, 1.82964)
+
+[node name="Root" type="Node3D"]
+
+[node name="Sky" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_kwuor")
+
+[node name="Player" type="RigidBody3D" parent="."]
+transform = Transform3D(0.256475, 0, 0.966551, 0, 1, 0, -0.966551, 0, 0.256475, 0, 0, 0)
+can_sleep = false
+angular_damp = 100.0
+script = ExtResource("2_g8n0y")
+
+[node name="Camera" type="Camera3D" parent="Player"]
+script = ExtResource("3_os7xn")
+
+[node name="SpotLight3d" type="SpotLight3D" parent="Player"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.499354, 0)
+light_energy = 2.556
+shadow_enabled = true
+spot_range = 25.0
+spot_angle = 31.15
+
+[node name="Weapons" type="Node3D" parent="Player"]
+
+[node name="LauncherRight" parent="Player/Weapons" instance=ExtResource("3_f3w0b")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, -0.204, 0)
+projectile = ExtResource("4_ikoec")
+
+[node name="LauncherLeft" parent="Player/Weapons" instance=ExtResource("3_f3w0b")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, -0.245, 0)
+projectile = ExtResource("4_ikoec")
+
+[node name="CollisionShape3d" type="CollisionShape3D" parent="Player"]
+shape = SubResource("BoxShape3D_ajx1y")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 698.0
+offset_bottom = 395.0
+
+[node name="FPSCounter" type="Label" parent="Control"]
+offset_right = 40.0
+offset_bottom = 23.0
+script = ExtResource("4_r6i1x")
+
+[node name="Level" type="Node3D" parent="."]
+
+[node name="CsgSphere3d" type="CSGSphere3D" parent="Level"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.13184, 1.33618, 0)
+
+[node name="CsgSphere3d2" type="CSGSphere3D" parent="Level"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.2637, 2.67235, 0)
+
+[node name="CsgSphere3d3" type="CSGSphere3D" parent="Level"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.53214, 1.33618, 0)
+
+[node name="CsgSphere3d4" type="CSGSphere3D" parent="Level"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.13184, 1.33618, 1.66446)
+
+[node name="CsgSphere3d5" type="CSGSphere3D" parent="Level"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.71196, 1.33618, -7.89178)
+
+[node name="CsgSphere3d6" type="CSGSphere3D" parent="Level"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.37374, 1.33618, -7.12561)
+
+[node name="CsgSphere3d7" type="CSGSphere3D" parent="Level"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.02348, 3.00227, -3.64931)
+
+[node name="CsgSphere3d8" type="CSGSphere3D" parent="Level"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.3548, -1.90126, -2.88216)
+
+[node name="CsgSphere3d9" type="CSGSphere3D" parent="Level"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.13184, -1.99261, -5.63024)
+
+[node name="DirectionalLight3d" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.999369, -0.00748875, -0.0347157, -0.000144081, -0.978362, 0.206901, -0.035514, -0.206765, -0.977746, 0, 0, 0)
+light_color = Color(1, 1, 0.721569, 1)
+light_energy = 0.795
+shadow_enabled = true
+sky_mode = 1
+
+[node name="Spawner" type="Area3D" parent="."]
+script = ExtResource("6_s31hl")
+enemyScene = ExtResource("5_or85d")
+
+[node name="CollisionShape3d" type="CollisionShape3D" parent="Spawner"]
+transform = Transform3D(9.62011, 0, 0, 0, 5.39299, 0, 0, 0, 5.42125, 0, 3.00825, 7.32533)
+shape = SubResource("BoxShape3D_i5rua")
+
+[node name="Timer" type="Timer" parent="Spawner"]
+wait_time = 10.0
+autostart = true
+
+[connection signal="timeout" from="Spawner/Timer" to="Spawner" method="_on_timer_timeout"]

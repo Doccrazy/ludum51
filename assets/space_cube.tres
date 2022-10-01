@@ -1,0 +1,6 @@
+[gd_resource type="Cubemap" load_steps=2 format=3 uid="uid://qxi07hm1eiuu"]
+
+[sub_resource type="GDScript" id="GDScript_2oc7f"]
+
+[resource]
+script = SubResource("GDScript_2oc7f")
