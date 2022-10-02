@@ -159,6 +159,7 @@ offset_right = 1152.0
 offset_bottom = 648.0
 
 [node name="FPSCounter" type="Label" parent="UI"]
+layout_mode = 0
 offset_right = 40.0
 offset_bottom = 23.0
 script = ExtResource("4_r6i1x")
@@ -166,6 +167,7 @@ script = ExtResource("4_r6i1x")
 [node name="DistortionOverlay" type="ColorRect" parent="UI"]
 visible = false
 material = SubResource("ShaderMaterial_ggyxa")
+layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -187,6 +189,7 @@ offset_right = 512.0
 offset_bottom = 512.0
 
 [node name="HealthBar" type="TextureProgressBar" parent="UI/SubViewportLeft/Control"]
+layout_mode = 0
 offset_right = 300.0
 offset_bottom = 64.0
 value = 50.0
@@ -196,6 +199,7 @@ texture_progress_offset = Vector2(10, 10)
 script = ExtResource("9_amcbk")
 
 [node name="Label" type="Label" parent="UI/SubViewportLeft/Control/HealthBar"]
+layout_mode = 0
 offset_right = 300.0
 offset_bottom = 64.0
 text = "HP"
@@ -203,6 +207,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="SpeedBar" type="TextureProgressBar" parent="UI/SubViewportLeft/Control"]
+layout_mode = 0
 offset_top = 80.0
 offset_right = 300.0
 offset_bottom = 144.0
@@ -213,6 +218,7 @@ texture_progress_offset = Vector2(10, 10)
 script = ExtResource("10_xus3b")
 
 [node name="Label" type="Label" parent="UI/SubViewportLeft/Control/SpeedBar"]
+layout_mode = 0
 offset_right = 300.0
 offset_bottom = 64.0
 text = "Speed"
@@ -233,6 +239,7 @@ offset_right = 512.0
 offset_bottom = 512.0
 
 [node name="EnemyBar" type="TextureProgressBar" parent="UI/SubViewportRight/Control"]
+layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
@@ -247,6 +254,7 @@ texYellow = SubResource("GradientTexture2D_nm0xw")
 texGreen = SubResource("GradientTexture2D_7hauv")
 
 [node name="Label" type="Label" parent="UI/SubViewportRight/Control/EnemyBar"]
+layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -261,6 +269,7 @@ wait_time = 0.5
 autostart = true
 
 [node name="AnomalyBar" type="TextureProgressBar" parent="UI/SubViewportRight/Control"]
+layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
@@ -276,6 +285,7 @@ texYellow = SubResource("GradientTexture2D_nm0xw")
 texGreen = SubResource("GradientTexture2D_7hauv")
 
 [node name="Label" type="Label" parent="UI/SubViewportRight/Control/AnomalyBar"]
+layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0

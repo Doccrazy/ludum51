@@ -38,6 +38,7 @@ func _input(event):
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	$Cockpit.rotation = angular_velocity * 0.05
 	pass
 
 func _physics_process(delta):
