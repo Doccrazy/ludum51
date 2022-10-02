@@ -21,5 +21,5 @@ func _process(delta):
 
 func _on_area_3d_body_entered(body: Node3D):
 	if body != parentNode:
-		body.emit_signal("hit", DAMAGE)
+		body.emit_signal("hit", DAMAGE, parentNode)
 		queue_free()

@@ -438,7 +438,7 @@
     <layer>
         <dataFile></dataFile>
         <destBlendFactor>one</destBlendFactor>
-        <farColor>1 0.717647 0.321569 1</farColor>
+        <farColor>1 0.886275 0.596078 1</farColor>
         <hdrMultiplier>2</hdrMultiplier>
         <hdrPower>2</hdrPower>
         <maskEnabled>false</maskEnabled>
@@ -451,7 +451,7 @@
         <maskScale>1</maskScale>
         <maskSeed>1</maskSeed>
         <maskThreshold>0</maskThreshold>
-        <maxSize>1</maxSize>
+        <maxSize>3</maxSize>
         <minSize>0.2</minSize>
         <name>SpacescapeLayer19</name>
         <nearColor>1 1 0.498039 1</nearColor>

@@ -17,4 +17,4 @@ func _on_timer_timeout():
 	var spawnpoint = Helpers.random_point_in_area(self)
 	enemy.position = spawnpoint
 	enemy.rotation = Helpers.random_direction()
-	owner.add_child(enemy)
+	#owner.add_child(enemy)

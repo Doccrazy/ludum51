@@ -59,7 +59,7 @@ func _physics_process(delta):
 #	angular_velocity = global_transform.basis * Vector3(localAngular.x, localAngular.y, localAngular.z * 0.9)
 
 func _on_hit(damage: float):
-	#get_node("Camera").shake(damage/MAX_HEALTH)
+	get_node("Camera").shake(damage/MAX_HEALTH)
 	#health -= damage
 	if health <= 0:
 		queue_free()

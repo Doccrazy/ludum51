@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://dgjh4qkfxk3sr"]
+[gd_scene load_steps=16 format=3 uid="uid://dgjh4qkfxk3sr"]
 
 [ext_resource type="Texture2D" uid="uid://b5dpa7jf68644" path="res://assets/panorama_image.png" id="1_1xr12"]
 [ext_resource type="Script" path="res://scripts/Player.gd" id="2_g8n0y"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" path="res://scripts/FPSCounter.gd" id="4_r6i1x"]
 [ext_resource type="PackedScene" uid="uid://b1yy5civq61ss" path="res://scenes/enemy/Enemy.tscn" id="5_or85d"]
 [ext_resource type="Script" path="res://scripts/Spawner.gd" id="6_s31hl"]
+[ext_resource type="PackedScene" uid="uid://dm203r8m7jf1i" path="res://scenes/blackHole/black_hole.tscn" id="8_idycg"]
 [ext_resource type="PackedScene" uid="uid://8mds1nj4ovhu" path="res://scenes/asteroidField/asteroid_field.tscn" id="10_5y541"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_34034"]
@@ -63,10 +64,11 @@ shape = SubResource("BoxShape3D_ajx1y")
 [node name="Control" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 0
-offset_right = 698.0
-offset_bottom = 395.0
+offset_right = 1152.0
+offset_bottom = 648.0
 
 [node name="FPSCounter" type="Label" parent="Control"]
+layout_mode = 0
 offset_right = 40.0
 offset_bottom = 23.0
 script = ExtResource("4_r6i1x")
@@ -94,6 +96,9 @@ transform = Transform3D(237.795, 0, 0, 0, 77.8641, 0, 0, 0, 592.762, -168.679, 1
 amount = 50
 minSize = 5.0
 maxSize = 10
+
+[node name="BlackHole" parent="Level" instance=ExtResource("8_idycg")]
+transform = Transform3D(-0.010559, 0, 0.999944, 0, 1, 0, -0.999944, 0, -0.010559, -5.59737, 1.51649, 0)
 
 [node name="DirectionalLight3d" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.999369, -0.00748875, -0.0347157, -0.000144081, -0.978362, 0.206901, -0.035514, -0.206765, -0.977746, 0, 0, 0)
