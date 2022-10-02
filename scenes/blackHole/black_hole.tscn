@@ -1,10 +1,12 @@
-[gd_scene load_steps=12 format=3 uid="uid://dm203r8m7jf1i"]
+[gd_scene load_steps=14 format=3 uid="uid://dm203r8m7jf1i"]
 
 [ext_resource type="Script" path="res://scenes/blackHole/black_hole.gd" id="1_wj1lh"]
 [ext_resource type="PackedScene" uid="uid://dvdcbcut5124a" path="res://scenes/explosion/Explosion.tscn" id="2_lm8dx"]
 [ext_resource type="Script" path="res://scenes/blackHole/StaticBody3d.gd" id="3_cwcjd"]
 [ext_resource type="Shader" path="res://scenes/blackHole/distort.gdshader" id="3_r4hbg"]
 [ext_resource type="PackedScene" uid="uid://wwrrj81lvgrj" path="res://objects/black_hole.tscn" id="5_4ji37"]
+[ext_resource type="AudioStream" uid="uid://bsqmab4pqramp" path="res://sounds/anomaly_wave.wav" id="6_a0hfd"]
+[ext_resource type="AudioStream" uid="uid://dwluntmk3gbmt" path="res://sounds/hit_anomaly.wav" id="7_tm6w1"]
 
 [sub_resource type="Curve" id="Curve_ov305"]
 min_value = -1.0
@@ -60,5 +62,11 @@ transform = Transform3D(0.658, 0, 0, 0, 0.658, 0, 0, 0, 0.658, 0, 0, 0)
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 10.0
+
+[node name="ShockwaveSound" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("6_a0hfd")
+
+[node name="HitSound" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("7_tm6w1")
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

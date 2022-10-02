@@ -30,6 +30,7 @@ func _input(event):
 			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 			get_viewport().set_input_as_handled()
 		else:
+			$FireSound.play()
 			for weapon in get_node("Weapons").get_children():
 				weapon.fire()
 	
@@ -53,6 +54,7 @@ func _physics_process(delta):
 
 func _on_hit(damage: float, cause: RigidBody3D):
 	get_node("Camera").shake(damage/MAX_HEALTH)
+	$HitSound.play()
 	health -= damage
 	if health <= 0:
 		get_tree().change_scene_to_file("res://scenes/menu/death.tscn")

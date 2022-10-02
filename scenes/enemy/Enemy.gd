@@ -52,10 +52,12 @@ func _physics_process(delta):
 	fireCooldown -= delta
 	if abs(angle_to_player) < 0.5 && fireCooldown <= 0:
 		fireCooldown = FIRE_RATE
+		$FireSound.play()
 		for weapon in get_node("Weapons").get_children():
 			weapon.fire()
 
 func _on_hit(damage: float, cause: RigidBody3D):
+	$HitSound.play()
 	health -= damage
 	if health <= 0:
 		var explosion = explosionScene.instantiate()

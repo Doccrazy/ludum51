@@ -1,6 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://dvdcbcut5124a"]
+[gd_scene load_steps=8 format=3 uid="uid://dvdcbcut5124a"]
 
 [ext_resource type="Script" path="res://scenes/explosion/Explosion.gd" id="1_ohhwh"]
+[ext_resource type="AudioStream" uid="uid://dfl6scussjo4v" path="res://sounds/explode.wav" id="2_cv3ue"]
 
 [sub_resource type="Gradient" id="Gradient_denla"]
 offsets = PackedFloat32Array(0, 0.285714, 0.526316, 0.774436, 1)
@@ -40,3 +41,7 @@ one_shot = true
 explosiveness = 0.71
 process_material = SubResource("ParticleProcessMaterial_ijqta")
 draw_pass_1 = SubResource("SphereMesh_0ru8d")
+
+[node name="Sound" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("2_cv3ue")
+autoplay = true

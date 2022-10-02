@@ -5,10 +5,10 @@ signal hit
 @export var explosionScene: PackedScene
 
 const MAX_HEALTH = 250
-const MIN_SCALE_DIST = 50
-const MAX_SCALE_DIST = 20
-const REVEAL_DIST = 15
-const FULL_REVEAL_DIST = 10
+const MIN_SCALE_DIST = 60
+const MAX_SCALE_DIST = 30
+const REVEAL_DIST = 25
+const FULL_REVEAL_DIST = 15
 
 var health = MAX_HEALTH
 
@@ -43,6 +43,7 @@ func _on_hit(damage: float, cause: RigidBody3D):
 	if !player || cause != player || distToPlayer > REVEAL_DIST:
 		return
 	health -= damage
+	$HitSound.play()
 	Global.anomalyHit.emit()
 	if health <= 0:
 		var explosion = explosionScene.instantiate()
@@ -52,6 +53,7 @@ func _on_hit(damage: float, cause: RigidBody3D):
 
 
 func _on_timer_timeout():
+	$ShockwaveSound.play()
 	var player = get_node_or_null("/root/Root/Player") as RigidBody3D
 	if player:
 		player.onShockwaveHit()

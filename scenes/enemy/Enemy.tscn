@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://b1yy5civq61ss"]
+[gd_scene load_steps=14 format=3 uid="uid://b1yy5civq61ss"]
 
 [ext_resource type="Script" path="res://scenes/enemy/Timer.gd" id="1_gexk5"]
 [ext_resource type="Script" path="res://scenes/enemy/Enemy.gd" id="1_h8ed6"]
@@ -6,6 +6,8 @@
 [ext_resource type="PackedScene" uid="uid://dn3gmvoqaq15w" path="res://scenes/launcher/Launcher.tscn" id="3_iolqd"]
 [ext_resource type="PackedScene" uid="uid://blovdjxkd0yhe" path="res://scenes/laser/Laser.tscn" id="4_a7kuc"]
 [ext_resource type="PackedScene" uid="uid://fygv8gsgk6no" path="res://objects/enemy.tscn" id="6_8oqec"]
+[ext_resource type="AudioStream" uid="uid://bv6hr2mjknqta" path="res://sounds/fire.wav" id="7_soh0e"]
+[ext_resource type="AudioStream" uid="uid://d78wu82wut2r" path="res://sounds/hit_ship.wav" id="8_tbb24"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jxvcj"]
 albedo_color = Color(0.584314, 0.752941, 0.752941, 1)
@@ -135,3 +137,9 @@ shape = SubResource("BoxShape3D_xty0g")
 transform = Transform3D(-0.593, 0, -5.18417e-08, 0, 0.593, 0, 5.18417e-08, 0, -0.593, 0, 0, 0)
 
 [node name="Enemy" parent="Model" instance=ExtResource("6_8oqec")]
+
+[node name="FireSound" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("7_soh0e")
+
+[node name="HitSound" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("8_tbb24")

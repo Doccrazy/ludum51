@@ -2,6 +2,8 @@ extends Area3D
 
 @export var enemyScene: PackedScene
 
+const MAX_COUNT = 10
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	Global.anomalyHit.connect(on_start_spawn)
@@ -18,6 +20,9 @@ func on_start_spawn():
 	$Timer.start()
 
 func _on_timer_timeout():
+	var enemyCount = get_tree().get_nodes_in_group("enemies").size()
+	if enemyCount > MAX_COUNT:
+		return
 	var enemy = enemyScene.instantiate() as Node3D
 	var spawnpoint = Helpers.random_point_in_area(self)
 	enemy.position = spawnpoint

@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=3 uid="uid://cn5re4ns11a1g"]
+[gd_scene load_steps=42 format=3 uid="uid://cn5re4ns11a1g"]
 
 [ext_resource type="Texture2D" uid="uid://b5dpa7jf68644" path="res://assets/panorama_image.png" id="1_1xr12"]
 [ext_resource type="Script" path="res://scripts/Player.gd" id="2_g8n0y"]
@@ -7,7 +7,9 @@
 [ext_resource type="PackedScene" uid="uid://blovdjxkd0yhe" path="res://scenes/laser/Laser.tscn" id="4_ikoec"]
 [ext_resource type="Script" path="res://scripts/FPSCounter.gd" id="4_r6i1x"]
 [ext_resource type="PackedScene" uid="uid://b1yy5civq61ss" path="res://scenes/enemy/Enemy.tscn" id="5_or85d"]
+[ext_resource type="AudioStream" uid="uid://bv6hr2mjknqta" path="res://sounds/fire.wav" id="6_gk2yj"]
 [ext_resource type="Script" path="res://scripts/Spawner.gd" id="6_s31hl"]
+[ext_resource type="AudioStream" uid="uid://d78wu82wut2r" path="res://sounds/hit_ship.wav" id="7_5w6gj"]
 [ext_resource type="Shader" path="res://electric.gdshader" id="7_vf4et"]
 [ext_resource type="Script" path="res://scripts/DistortionOverlay.gd" id="8_fa3it"]
 [ext_resource type="PackedScene" uid="uid://dm203r8m7jf1i" path="res://scenes/blackHole/black_hole.tscn" id="8_idycg"]
@@ -152,6 +154,12 @@ texture = SubResource("ViewportTexture_qkpn0")
 transform = Transform3D(0.115493, 0.0227153, -0.0280415, -0.0233511, 0.118726, 0, 0.0275144, 0.00541157, 0.117706, 0.255293, -0.421506, -0.545629)
 texture = SubResource("ViewportTexture_n81e5")
 
+[node name="FireSound" type="AudioStreamPlayer3D" parent="Player"]
+stream = ExtResource("6_gk2yj")
+
+[node name="HitSound" type="AudioStreamPlayer3D" parent="Player"]
+stream = ExtResource("7_5w6gj")
+
 [node name="UI" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 0
@@ -159,7 +167,6 @@ offset_right = 1152.0
 offset_bottom = 648.0
 
 [node name="FPSCounter" type="Label" parent="UI"]
-layout_mode = 0
 offset_right = 40.0
 offset_bottom = 23.0
 script = ExtResource("4_r6i1x")
@@ -167,7 +174,6 @@ script = ExtResource("4_r6i1x")
 [node name="DistortionOverlay" type="ColorRect" parent="UI"]
 visible = false
 material = SubResource("ShaderMaterial_ggyxa")
-layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -189,7 +195,6 @@ offset_right = 512.0
 offset_bottom = 512.0
 
 [node name="HealthBar" type="TextureProgressBar" parent="UI/SubViewportLeft/Control"]
-layout_mode = 0
 offset_right = 300.0
 offset_bottom = 64.0
 value = 50.0
@@ -199,7 +204,6 @@ texture_progress_offset = Vector2(10, 10)
 script = ExtResource("9_amcbk")
 
 [node name="Label" type="Label" parent="UI/SubViewportLeft/Control/HealthBar"]
-layout_mode = 0
 offset_right = 300.0
 offset_bottom = 64.0
 text = "HP"
@@ -207,7 +211,6 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="SpeedBar" type="TextureProgressBar" parent="UI/SubViewportLeft/Control"]
-layout_mode = 0
 offset_top = 80.0
 offset_right = 300.0
 offset_bottom = 144.0
@@ -218,7 +221,6 @@ texture_progress_offset = Vector2(10, 10)
 script = ExtResource("10_xus3b")
 
 [node name="Label" type="Label" parent="UI/SubViewportLeft/Control/SpeedBar"]
-layout_mode = 0
 offset_right = 300.0
 offset_bottom = 64.0
 text = "Speed"
@@ -239,7 +241,6 @@ offset_right = 512.0
 offset_bottom = 512.0
 
 [node name="EnemyBar" type="TextureProgressBar" parent="UI/SubViewportRight/Control"]
-layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
@@ -254,7 +255,6 @@ texYellow = SubResource("GradientTexture2D_nm0xw")
 texGreen = SubResource("GradientTexture2D_7hauv")
 
 [node name="Label" type="Label" parent="UI/SubViewportRight/Control/EnemyBar"]
-layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -269,7 +269,6 @@ wait_time = 0.5
 autostart = true
 
 [node name="AnomalyBar" type="TextureProgressBar" parent="UI/SubViewportRight/Control"]
-layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
@@ -285,7 +284,6 @@ texYellow = SubResource("GradientTexture2D_nm0xw")
 texGreen = SubResource("GradientTexture2D_7hauv")
 
 [node name="Label" type="Label" parent="UI/SubViewportRight/Control/AnomalyBar"]
-layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
