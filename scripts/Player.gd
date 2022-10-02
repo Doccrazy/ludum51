@@ -41,18 +41,9 @@ func _process(delta):
 	pass
 
 func _physics_process(delta):
-	if Input.is_action_pressed("forward"):
-		apply_central_force(global_transform.basis * Vector3(0, 0, -THRUST_FORWARD))
-	if Input.is_action_pressed("back"):
-		apply_central_force(global_transform.basis * Vector3(0, 0, THRUST_BACK))
-	if Input.is_action_pressed("left"):
-		apply_central_force(global_transform.basis * Vector3(-THRUST_SIDE, 0, 0))
-	if Input.is_action_pressed("right"):
-		apply_central_force(global_transform.basis * Vector3(THRUST_SIDE, 0, 0))
-	if Input.is_action_pressed("up"):
-		apply_central_force(global_transform.basis * Vector3(0, THRUST_SIDE, 0))
-	if Input.is_action_pressed("down"):
-		apply_central_force(global_transform.basis * Vector3(0, -THRUST_SIDE, 0))
+	var movement = Input.get_vector("move_left", "move_right", "move_back", "move_forward")
+	var upDown = Input.get_axis("move_down", "move_up")
+	apply_central_force(global_transform.basis * Vector3(movement.x * THRUST_SIDE, upDown * THRUST_SIDE, -THRUST_FORWARD*movement.y if movement.y > 0 else THRUST_BACK*movement.y))
 
 #func _integrate_forces(state):
 #	var localAngular = angular_velocity * global_transform.basis
@@ -61,9 +52,10 @@ func _physics_process(delta):
 
 func _on_hit(damage: float, cause: RigidBody3D):
 	get_node("Camera").shake(damage/MAX_HEALTH)
-	#health -= damage
+	health -= damage
 	if health <= 0:
-		queue_free()
+		#queue_free()
+		pass
 
 func onShockwaveHit():
 	$/root/Root/UI/DistortionOverlay.showOverlay()
@@ -71,3 +63,6 @@ func onShockwaveHit():
 
 func getHealth():
 	return health / MAX_HEALTH
+
+func getSpeed():
+	return clamp(linear_velocity.length() / 25, 0, 1)

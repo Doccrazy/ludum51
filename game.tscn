@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3 uid="uid://dgjh4qkfxk3sr"]
+[gd_scene load_steps=39 format=3 uid="uid://cn5re4ns11a1g"]
 
 [ext_resource type="Texture2D" uid="uid://b5dpa7jf68644" path="res://assets/panorama_image.png" id="1_1xr12"]
 [ext_resource type="Script" path="res://scripts/Player.gd" id="2_g8n0y"]
@@ -12,8 +12,10 @@
 [ext_resource type="Script" path="res://scripts/DistortionOverlay.gd" id="8_fa3it"]
 [ext_resource type="PackedScene" uid="uid://dm203r8m7jf1i" path="res://scenes/blackHole/black_hole.tscn" id="8_idycg"]
 [ext_resource type="Script" path="res://scripts/HealthBar.gd" id="9_amcbk"]
-[ext_resource type="Script" path="res://scripts/StatusBar.gd" id="10_1w3q3"]
+[ext_resource type="Script" path="res://scripts/EnemyBar.gd" id="10_1w3q3"]
 [ext_resource type="PackedScene" uid="uid://8mds1nj4ovhu" path="res://scenes/asteroidField/asteroid_field.tscn" id="10_5y541"]
+[ext_resource type="Script" path="res://scripts/SpeedBar.gd" id="10_xus3b"]
+[ext_resource type="Script" path="res://scripts/AnomalyBar.gd" id="11_mqm30"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_34034"]
 panorama = ExtResource("1_1xr12")
@@ -56,8 +58,18 @@ gradient = SubResource("Gradient_32o8q")
 width = 300
 repeat = 1
 
+[sub_resource type="Gradient" id="Gradient_8a78m"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(1, 0, 0, 0.654902)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_o8rxq"]
+gradient = SubResource("Gradient_8a78m")
+width = 280
+height = 44
+
 [sub_resource type="Gradient" id="Gradient_s4rnq"]
-colors = PackedColorArray(1, 0, 0, 0.662745, 1, 0, 0, 0.658824)
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0.72549, 0.517647, 0, 0.662745)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_iyhkj"]
 gradient = SubResource("Gradient_s4rnq")
@@ -92,7 +104,7 @@ width = 280
 height = 44
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_i5rua"]
-size = Vector3(1.45147, 1.71653, 1.82964)
+size = Vector3(2.48564, 2.49025, 2.58803)
 
 [node name="Root" type="Node3D"]
 
@@ -132,11 +144,11 @@ shape = SubResource("BoxShape3D_ajx1y")
 [node name="Cockpit" type="Node3D" parent="Player"]
 
 [node name="LeftSprite" type="Sprite3D" parent="Player/Cockpit"]
-transform = Transform3D(0.114448, -0.0247446, 0.0305004, 0.0255703, 0.118267, 0, -0.0298116, 0.00644549, 0.117093, -0.254439, -0.529454, -0.583536)
+transform = Transform3D(0.114448, -0.0247446, 0.0305004, 0.0255703, 0.118267, 0, -0.0298116, 0.00644549, 0.117093, -0.290593, -0.441104, -0.574119)
 texture = SubResource("ViewportTexture_qkpn0")
 
 [node name="RightSprite" type="Sprite3D" parent="Player/Cockpit"]
-transform = Transform3D(0.114059, 0.0290732, -0.0280415, -0.0298869, 0.117251, 0, 0.0271727, 0.00692622, 0.117706, 0.225144, -0.51084, -0.552812)
+transform = Transform3D(0.115493, 0.0227153, -0.0280415, -0.0233511, 0.118726, 0, 0.0275144, 0.00541157, 0.117706, 0.255293, -0.421506, -0.545629)
 texture = SubResource("ViewportTexture_n81e5")
 
 [node name="UI" type="Control" parent="."]
@@ -176,20 +188,39 @@ offset_right = 512.0
 offset_bottom = 512.0
 
 [node name="HealthBar" type="TextureProgressBar" parent="UI/SubViewportLeft/Control"]
-layout_mode = 1
+layout_mode = 0
 offset_right = 300.0
 offset_bottom = 64.0
 value = 50.0
 texture_under = SubResource("GradientTexture2D_6fjne")
-texture_progress = SubResource("GradientTexture2D_iyhkj")
+texture_progress = SubResource("GradientTexture2D_o8rxq")
 texture_progress_offset = Vector2(10, 10)
 script = ExtResource("9_amcbk")
 
-[node name="Label" type="Label" parent="UI/SubViewportLeft/Control"]
-layout_mode = 1
+[node name="Label" type="Label" parent="UI/SubViewportLeft/Control/HealthBar"]
+layout_mode = 0
 offset_right = 300.0
 offset_bottom = 64.0
 text = "HP"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SpeedBar" type="TextureProgressBar" parent="UI/SubViewportLeft/Control"]
+layout_mode = 1
+offset_top = 80.0
+offset_right = 300.0
+offset_bottom = 144.0
+value = 50.0
+texture_under = SubResource("GradientTexture2D_6fjne")
+texture_progress = SubResource("GradientTexture2D_iyhkj")
+texture_progress_offset = Vector2(10, 10)
+script = ExtResource("10_xus3b")
+
+[node name="Label" type="Label" parent="UI/SubViewportLeft/Control/SpeedBar"]
+layout_mode = 1
+offset_right = 300.0
+offset_bottom = 64.0
+text = "Speed"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -206,7 +237,7 @@ anchors_preset = 0
 offset_right = 512.0
 offset_bottom = 512.0
 
-[node name="StatusBar" type="TextureProgressBar" parent="UI/SubViewportRight/Control"]
+[node name="EnemyBar" type="TextureProgressBar" parent="UI/SubViewportRight/Control"]
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
@@ -221,7 +252,7 @@ texRed = SubResource("GradientTexture2D_rx111")
 texYellow = SubResource("GradientTexture2D_nm0xw")
 texGreen = SubResource("GradientTexture2D_7hauv")
 
-[node name="Label" type="Label" parent="UI/SubViewportRight/Control/StatusBar"]
+[node name="Label" type="Label" parent="UI/SubViewportRight/Control/EnemyBar"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -232,7 +263,38 @@ text = "Hello World"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Timer" type="Timer" parent="UI/SubViewportRight/Control/StatusBar"]
+[node name="Timer" type="Timer" parent="UI/SubViewportRight/Control/EnemyBar"]
+wait_time = 0.5
+autostart = true
+
+[node name="AnomalyBar" type="TextureProgressBar" parent="UI/SubViewportRight/Control"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -300.0
+offset_top = 80.0
+offset_bottom = 144.0
+grow_horizontal = 0
+texture_under = SubResource("GradientTexture2D_6fjne")
+texture_progress_offset = Vector2(10, 10)
+script = ExtResource("11_mqm30")
+texRed = SubResource("GradientTexture2D_rx111")
+texYellow = SubResource("GradientTexture2D_nm0xw")
+texGreen = SubResource("GradientTexture2D_7hauv")
+
+[node name="Label" type="Label" parent="UI/SubViewportRight/Control/AnomalyBar"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Hello World"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Timer" type="Timer" parent="UI/SubViewportRight/Control/AnomalyBar"]
 wait_time = 0.5
 autostart = true
 
@@ -261,7 +323,24 @@ minSize = 5.0
 maxSize = 10
 
 [node name="BlackHole" parent="Level" instance=ExtResource("8_idycg")]
-transform = Transform3D(-0.010559, 0, 0.999944, 0, 1, 0, -0.999944, 0, -0.010559, -5.59737, 1.51649, 0)
+transform = Transform3D(-0.010559, 0, 0.999944, 0, 1, 0, -0.999944, 0, -0.010559, -41.0589, 9.48123, 16.2647)
+
+[node name="BlackHole2" parent="Level" instance=ExtResource("8_idycg")]
+transform = Transform3D(-0.010559, 0, 0.999944, 0, 1, 0, -0.999944, 0, -0.010559, 83.0093, 9.48123, -40.673)
+
+[node name="BlackHole3" parent="Level" instance=ExtResource("8_idycg")]
+transform = Transform3D(-0.010559, 0, 0.999944, 0, 1, 0, -0.999944, 0, -0.010559, -10.1628, 9.48123, -39.0352)
+
+[node name="Spawner" type="Area3D" parent="Level"]
+script = ExtResource("6_s31hl")
+enemyScene = ExtResource("5_or85d")
+
+[node name="CollisionShape3d" type="CollisionShape3D" parent="Level/Spawner"]
+transform = Transform3D(9.62011, 0, 0, 0, 5.39299, 0, 0, 0, 5.42125, 0, 7.01922, 16.2011)
+shape = SubResource("BoxShape3D_i5rua")
+
+[node name="Timer" type="Timer" parent="Level/Spawner"]
+wait_time = 10.0
 
 [node name="DirectionalLight3d" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.999369, -0.00748875, -0.0347157, -0.000144081, -0.978362, 0.206901, -0.035514, -0.206765, -0.977746, 0, 0, 0)
@@ -270,16 +349,6 @@ light_energy = 0.795
 shadow_enabled = true
 sky_mode = 1
 
-[node name="Spawner" type="Area3D" parent="."]
-script = ExtResource("6_s31hl")
-enemyScene = ExtResource("5_or85d")
-
-[node name="CollisionShape3d" type="CollisionShape3D" parent="Spawner"]
-transform = Transform3D(9.62011, 0, 0, 0, 5.39299, 0, 0, 0, 5.42125, 0, 3.00825, 7.32533)
-shape = SubResource("BoxShape3D_i5rua")
-
-[node name="Timer" type="Timer" parent="Spawner"]
-wait_time = 10.0
-
-[connection signal="timeout" from="UI/SubViewportRight/Control/StatusBar/Timer" to="UI/SubViewportRight/Control/StatusBar" method="_on_timer_timeout"]
-[connection signal="timeout" from="Spawner/Timer" to="Spawner" method="_on_timer_timeout"]
+[connection signal="timeout" from="UI/SubViewportRight/Control/EnemyBar/Timer" to="UI/SubViewportRight/Control/EnemyBar" method="_on_timer_timeout"]
+[connection signal="timeout" from="UI/SubViewportRight/Control/AnomalyBar/Timer" to="UI/SubViewportRight/Control/AnomalyBar" method="_on_timer_timeout"]
+[connection signal="timeout" from="Level/Spawner/Timer" to="Level/Spawner" method="_on_timer_timeout"]

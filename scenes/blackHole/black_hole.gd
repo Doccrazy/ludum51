@@ -14,6 +14,7 @@ var health = MAX_HEALTH
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	add_to_group("anomalies")
 	hit.connect(_on_hit)
 	await get_tree().create_timer(randf() * $Timer.wait_time).timeout
 	$Timer.start()
