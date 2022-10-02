@@ -50,7 +50,8 @@ func _physics_process(delta):
 	apply_central_force(global_transform.basis * Vector3(movement.x * THRUST_SIDE, upDown * THRUST_SIDE, -THRUST_FORWARD*movement.y if movement.y > 0 else THRUST_BACK*movement.y))
 	if Input.get_connected_joypads().size() > 0:
 		var steer = Input.get_vector("steer_left", "steer_right", "steer_up", "steer_down")
-		constant_torque = global_transform.basis * Vector3(-steer.y * CONTROLLER_SENSITIVITY, -steer.x * CONTROLLER_SENSITIVITY, 0)
+		if abs(steer.x) >= 0.01 || abs(steer.y) >= 0.01:
+			constant_torque = global_transform.basis * Vector3(-steer.y * CONTROLLER_SENSITIVITY, -steer.x * CONTROLLER_SENSITIVITY, 0)
 
 #func _integrate_forces(state):
 #	var localAngular = angular_velocity * global_transform.basis

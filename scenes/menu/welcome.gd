@@ -12,7 +12,7 @@ func _ready():
 	pass # Replace with function body.
 
 func _input(event):
-	if event.is_action_pressed("fire") || event.is_action_pressed("ui_select"):
+	if event.is_action_pressed("ui_select"):
 		_on_start_button_pressed()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -21,4 +21,9 @@ func _process(delta):
 
 
 func _on_start_button_pressed():
+	get_tree().change_scene_to_packed(gameScene)
+
+
+func _on_start_button_fs_pressed():
+	get_viewport().mode = Window.MODE_FULLSCREEN
 	get_tree().change_scene_to_packed(gameScene)
