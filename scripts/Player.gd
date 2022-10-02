@@ -8,7 +8,7 @@ const MOUSE_SENSITIVITY = 0.03
 const THRUST_FORWARD = 6
 const THRUST_BACK = 0.2
 const THRUST_SIDE = 1
-const MAX_HEALTH = 100
+const MAX_HEALTH = 200
 const SHOCKWAVE_IMPULSE = 1;
 
 var health = MAX_HEALTH
@@ -54,7 +54,7 @@ func _on_hit(damage: float, cause: RigidBody3D):
 	get_node("Camera").shake(damage/MAX_HEALTH)
 	health -= damage
 	if health <= 0:
-		#queue_free()
+		get_tree().change_scene_to_file("res://scenes/menu/death.tscn")
 		pass
 
 func onShockwaveHit():

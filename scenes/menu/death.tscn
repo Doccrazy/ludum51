@@ -1,0 +1,58 @@
+[gd_scene load_steps=3 format=3 uid="uid://bg0oxd4mh7qws"]
+
+[ext_resource type="Script" path="res://scenes/menu/death.gd" id="1_bh7aj"]
+[ext_resource type="Texture2D" uid="uid://dc1kxsfmpt2sp" path="res://assets/death.png" id="1_ltxh5"]
+
+[node name="Death" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource("1_bh7aj")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_ltxh5")
+ignore_texture_size = true
+
+[node name="RichTextLabel" type="RichTextLabel" parent="TextureRect"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+bbcode_enabled = true
+text = "
+[center][b][color=#000000][font_size=60]--== Incursion ==--[/font_size][/color][/b]
+
+
+[b][color=#f00f00][font_size=40]Mission Failed[/font_size][/color][/b]
+
+
+[font_size=28]Central command has lost your signal. 
+
+
+Unknown sensor echoes have been detected approaching earth.
+[/font_size]
+[/center]"
+
+[node name="TryAgainButton" type="Button" parent="TextureRect"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -141.0
+offset_top = -128.0
+offset_right = 141.0
+offset_bottom = -79.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 24
+text = "Try again"
+
+[connection signal="pressed" from="TextureRect/TryAgainButton" to="." method="_on_try_again_button_pressed"]

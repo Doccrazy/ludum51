@@ -1,0 +1,59 @@
+[gd_scene load_steps=3 format=3 uid="uid://hebtwywu4foq"]
+
+[ext_resource type="Texture2D" uid="uid://u8gpbhxioytb" path="res://assets/victory.png" id="1_8hsol"]
+[ext_resource type="Script" path="res://scenes/menu/victory.gd" id="1_xgsx4"]
+
+[node name="Victory" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource("1_xgsx4")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_8hsol")
+ignore_texture_size = true
+
+[node name="RichTextLabel" type="RichTextLabel" parent="TextureRect"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+bbcode_enabled = true
+text = "
+[center][b][color=#000000][font_size=60]--== Incursion ==--[/font_size][/color][/b]
+
+
+[b][color=#00ff00][font_size=40]Mission Success[/font_size][/color][/b]
+
+
+[font_size=28]Central command thanks you for your service in
+securing sector lambda::delta/51. 
+
+
+Thank you for playing!
+[/font_size]
+[/center]"
+
+[node name="QuitButton" type="Button" parent="TextureRect"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -141.0
+offset_top = -128.0
+offset_right = 141.0
+offset_bottom = -79.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 24
+text = "Return home"
+
+[connection signal="pressed" from="TextureRect/QuitButton" to="." method="_on_quit_button_pressed"]
