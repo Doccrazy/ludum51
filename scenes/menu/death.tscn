@@ -13,6 +13,7 @@ grow_vertical = 2
 script = ExtResource("1_bh7aj")
 
 [node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -22,6 +23,7 @@ texture = ExtResource("1_ltxh5")
 ignore_texture_size = true
 
 [node name="RichTextLabel" type="RichTextLabel" parent="TextureRect"]
+layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -43,6 +45,7 @@ Unknown sensor echoes have been detected approaching earth.
 [/center]"
 
 [node name="TryAgainButton" type="Button" parent="TextureRect"]
+layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0

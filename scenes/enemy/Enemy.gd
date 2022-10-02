@@ -56,7 +56,7 @@ func _physics_process(delta):
 		for weapon in get_node("Weapons").get_children():
 			weapon.fire()
 
-func _on_hit(damage: float, cause: RigidBody3D):
+func _on_hit(damage: float, cause: Node3D):
 	$HitSound.play()
 	health -= damage
 	if health <= 0:

@@ -21,7 +21,8 @@ func on_start_spawn():
 
 func _on_timer_timeout():
 	var enemyCount = get_tree().get_nodes_in_group("enemies").size()
-	if enemyCount > MAX_COUNT:
+	var anomalyCount = get_tree().get_nodes_in_group("anomalies").size()
+	if enemyCount > MAX_COUNT || anomalyCount == 0:
 		return
 	var enemy = enemyScene.instantiate() as Node3D
 	var spawnpoint = Helpers.random_point_in_area(self)

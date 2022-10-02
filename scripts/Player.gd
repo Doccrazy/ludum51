@@ -4,12 +4,13 @@ signal hit
 
 # Converts mouse movement (pixels) to rotation (radians).
 const MOUSE_SENSITIVITY = 0.03
+const CONTROLLER_SENSITIVITY = 1
 
 const THRUST_FORWARD = 6
 const THRUST_BACK = 0.2
 const THRUST_SIDE = 1
 const MAX_HEALTH = 200
-const SHOCKWAVE_IMPULSE = 1;
+const SHOCKWAVE_IMPULSE = 0.3;
 
 var health = MAX_HEALTH
 
@@ -36,6 +37,7 @@ func _input(event):
 	
 	if event is InputEventMouseMotion and Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
 		constant_torque = global_transform.basis * Vector3( -event.relative.y * MOUSE_SENSITIVITY, -event.relative.x * MOUSE_SENSITIVITY, 0)
+	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -46,13 +48,16 @@ func _physics_process(delta):
 	var movement = Input.get_vector("move_left", "move_right", "move_back", "move_forward")
 	var upDown = Input.get_axis("move_down", "move_up")
 	apply_central_force(global_transform.basis * Vector3(movement.x * THRUST_SIDE, upDown * THRUST_SIDE, -THRUST_FORWARD*movement.y if movement.y > 0 else THRUST_BACK*movement.y))
+	if Input.get_connected_joypads().size() > 0:
+		var steer = Input.get_vector("steer_left", "steer_right", "steer_up", "steer_down")
+		constant_torque = global_transform.basis * Vector3(-steer.y * CONTROLLER_SENSITIVITY, -steer.x * CONTROLLER_SENSITIVITY, 0)
 
 #func _integrate_forces(state):
 #	var localAngular = angular_velocity * global_transform.basis
 #	print(localAngular.z)
 #	angular_velocity = global_transform.basis * Vector3(localAngular.x, localAngular.y, localAngular.z * 0.9)
 
-func _on_hit(damage: float, cause: RigidBody3D):
+func _on_hit(damage: float, cause: Node3D):
 	get_node("Camera").shake(damage/MAX_HEALTH)
 	$HitSound.play()
 	health -= damage

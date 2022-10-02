@@ -5,10 +5,10 @@ signal hit
 @export var explosionScene: PackedScene
 
 const MAX_HEALTH = 250
-const MIN_SCALE_DIST = 60
-const MAX_SCALE_DIST = 30
-const REVEAL_DIST = 25
-const FULL_REVEAL_DIST = 15
+const MIN_SCALE_DIST = 80
+const MAX_SCALE_DIST = 40
+const REVEAL_DIST = 40
+const FULL_REVEAL_DIST = 25
 
 var health = MAX_HEALTH
 
@@ -36,7 +36,7 @@ func _process(delta):
 	else:
 		$ColorRect.visible = false
 
-func _on_hit(damage: float, cause: RigidBody3D):
+func _on_hit(damage: float, cause: Node3D):
 	print("hit", health)
 	var player = get_node_or_null("/root/Root/Player") as RigidBody3D
 	var distToPlayer = (cause.global_transform.origin - global_transform.origin).length()
