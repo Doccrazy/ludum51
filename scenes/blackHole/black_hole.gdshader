@@ -1,4 +1,5 @@
 shader_type spatial;
+render_mode unshaded;
 
 uniform sampler2D noiseTexture;
 uniform vec3 baseColorRGB: source_color = vec3(0.2, 0.1, 0.4);

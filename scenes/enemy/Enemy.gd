@@ -19,6 +19,7 @@ var health = MAX_HEALTH
 func _ready():
 	linear_velocity = global_transform.basis * Vector3(0, 0, -10)
 	hit.connect(_on_hit)
+	add_to_group("enemies")
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -54,7 +55,7 @@ func _physics_process(delta):
 		for weapon in get_node("Weapons").get_children():
 			weapon.fire()
 
-func _on_hit(damage: float):
+func _on_hit(damage: float, cause: RigidBody3D):
 	health -= damage
 	if health <= 0:
 		var explosion = explosionScene.instantiate()

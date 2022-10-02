@@ -15,6 +15,8 @@ var health = MAX_HEALTH
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	hit.connect(_on_hit)
+	await get_tree().create_timer(randf() * $Timer.wait_time).timeout
+	$Timer.start()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -40,8 +42,15 @@ func _on_hit(damage: float, cause: RigidBody3D):
 	if !player || cause != player || distToPlayer > REVEAL_DIST:
 		return
 	health -= damage
+	Global.anomalyHit.emit()
 	if health <= 0:
 		var explosion = explosionScene.instantiate()
 		explosion.position = global_transform.origin
 		$/root/Root.add_child(explosion)
 		queue_free()
+
+
+func _on_timer_timeout():
+	var player = get_node_or_null("/root/Root/Player") as RigidBody3D
+	if player:
+		player.onShockwaveHit()

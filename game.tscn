@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://dgjh4qkfxk3sr"]
+[gd_scene load_steps=35 format=3 uid="uid://dgjh4qkfxk3sr"]
 
 [ext_resource type="Texture2D" uid="uid://b5dpa7jf68644" path="res://assets/panorama_image.png" id="1_1xr12"]
 [ext_resource type="Script" path="res://scripts/Player.gd" id="2_g8n0y"]
@@ -8,7 +8,11 @@
 [ext_resource type="Script" path="res://scripts/FPSCounter.gd" id="4_r6i1x"]
 [ext_resource type="PackedScene" uid="uid://b1yy5civq61ss" path="res://scenes/enemy/Enemy.tscn" id="5_or85d"]
 [ext_resource type="Script" path="res://scripts/Spawner.gd" id="6_s31hl"]
+[ext_resource type="Shader" path="res://electric.gdshader" id="7_vf4et"]
+[ext_resource type="Script" path="res://scripts/DistortionOverlay.gd" id="8_fa3it"]
 [ext_resource type="PackedScene" uid="uid://dm203r8m7jf1i" path="res://scenes/blackHole/black_hole.tscn" id="8_idycg"]
+[ext_resource type="Script" path="res://scripts/HealthBar.gd" id="9_amcbk"]
+[ext_resource type="Script" path="res://scripts/StatusBar.gd" id="10_1w3q3"]
 [ext_resource type="PackedScene" uid="uid://8mds1nj4ovhu" path="res://scenes/asteroidField/asteroid_field.tscn" id="10_5y541"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_34034"]
@@ -24,6 +28,69 @@ sky = SubResource("Sky_wlonh")
 [sub_resource type="BoxShape3D" id="BoxShape3D_ajx1y"]
 size = Vector3(0.965, 0.647, 1.606)
 
+[sub_resource type="ViewportTexture" id="ViewportTexture_qkpn0"]
+viewport_path = NodePath("UI/SubViewportLeft")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_n81e5"]
+viewport_path = NodePath("UI/SubViewportRight")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_oxsxw"]
+frequency = 0.147
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_tv6jx"]
+seamless = true
+noise = SubResource("FastNoiseLite_oxsxw")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ggyxa"]
+shader = ExtResource("7_vf4et")
+shader_parameter/baseColorRGB = Color(0.156863, 0.301961, 0.627451, 1)
+shader_parameter/noiseTexture = SubResource("NoiseTexture2D_tv6jx")
+shader_parameter/speed = 0.297
+
+[sub_resource type="Gradient" id="Gradient_32o8q"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0.278431, 0.278431, 0.278431, 0.501961)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_6fjne"]
+gradient = SubResource("Gradient_32o8q")
+width = 300
+repeat = 1
+
+[sub_resource type="Gradient" id="Gradient_s4rnq"]
+colors = PackedColorArray(1, 0, 0, 0.662745, 1, 0, 0, 0.658824)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_iyhkj"]
+gradient = SubResource("Gradient_s4rnq")
+width = 280
+height = 44
+
+[sub_resource type="Gradient" id="Gradient_cqied"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(1, 0, 0, 0.662745)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_rx111"]
+gradient = SubResource("Gradient_cqied")
+width = 280
+height = 44
+
+[sub_resource type="Gradient" id="Gradient_mqmax"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(1, 1, 0, 0.658824)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_nm0xw"]
+gradient = SubResource("Gradient_mqmax")
+width = 280
+height = 44
+
+[sub_resource type="Gradient" id="Gradient_h1vqy"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0, 1, 0, 0.662745)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_7hauv"]
+gradient = SubResource("Gradient_h1vqy")
+width = 280
+height = 44
+
 [sub_resource type="BoxShape3D" id="BoxShape3D_i5rua"]
 size = Vector3(1.45147, 1.71653, 1.82964)
 
@@ -35,6 +102,7 @@ environment = SubResource("Environment_kwuor")
 [node name="Player" type="RigidBody3D" parent="."]
 transform = Transform3D(0.256475, 0, 0.966551, 0, 1, 0, -0.966551, 0, 0.256475, 0, 0, 0)
 can_sleep = false
+linear_damp_mode = 1
 angular_damp = 1.0
 script = ExtResource("2_g8n0y")
 
@@ -61,17 +129,112 @@ projectile = ExtResource("4_ikoec")
 [node name="CollisionShape3d" type="CollisionShape3D" parent="Player"]
 shape = SubResource("BoxShape3D_ajx1y")
 
-[node name="Control" type="Control" parent="."]
+[node name="Cockpit" type="Node3D" parent="Player"]
+
+[node name="LeftSprite" type="Sprite3D" parent="Player/Cockpit"]
+transform = Transform3D(0.114448, -0.0247446, 0.0305004, 0.0255703, 0.118267, 0, -0.0298116, 0.00644549, 0.117093, -0.254439, -0.529454, -0.583536)
+texture = SubResource("ViewportTexture_qkpn0")
+
+[node name="RightSprite" type="Sprite3D" parent="Player/Cockpit"]
+transform = Transform3D(0.114059, 0.0290732, -0.0280415, -0.0298869, 0.117251, 0, 0.0271727, 0.00692622, 0.117706, 0.225144, -0.51084, -0.552812)
+texture = SubResource("ViewportTexture_n81e5")
+
+[node name="UI" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 1152.0
 offset_bottom = 648.0
 
-[node name="FPSCounter" type="Label" parent="Control"]
+[node name="FPSCounter" type="Label" parent="UI"]
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 23.0
 script = ExtResource("4_r6i1x")
+
+[node name="DistortionOverlay" type="ColorRect" parent="UI"]
+visible = false
+material = SubResource("ShaderMaterial_ggyxa")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("8_fa3it")
+
+[node name="SubViewportLeft" type="SubViewport" parent="UI"]
+disable_3d = true
+transparent_bg = true
+gui_disable_input = true
+size_2d_override_stretch = true
+render_target_update_mode = 4
+
+[node name="Control" type="Control" parent="UI/SubViewportLeft"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 512.0
+offset_bottom = 512.0
+
+[node name="HealthBar" type="TextureProgressBar" parent="UI/SubViewportLeft/Control"]
+layout_mode = 1
+offset_right = 300.0
+offset_bottom = 64.0
+value = 50.0
+texture_under = SubResource("GradientTexture2D_6fjne")
+texture_progress = SubResource("GradientTexture2D_iyhkj")
+texture_progress_offset = Vector2(10, 10)
+script = ExtResource("9_amcbk")
+
+[node name="Label" type="Label" parent="UI/SubViewportLeft/Control"]
+layout_mode = 1
+offset_right = 300.0
+offset_bottom = 64.0
+text = "HP"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SubViewportRight" type="SubViewport" parent="UI"]
+disable_3d = true
+transparent_bg = true
+gui_disable_input = true
+size_2d_override_stretch = true
+render_target_update_mode = 4
+
+[node name="Control" type="Control" parent="UI/SubViewportRight"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 512.0
+offset_bottom = 512.0
+
+[node name="StatusBar" type="TextureProgressBar" parent="UI/SubViewportRight/Control"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -300.0
+offset_bottom = 64.0
+grow_horizontal = 0
+texture_under = SubResource("GradientTexture2D_6fjne")
+texture_progress_offset = Vector2(10, 10)
+script = ExtResource("10_1w3q3")
+texRed = SubResource("GradientTexture2D_rx111")
+texYellow = SubResource("GradientTexture2D_nm0xw")
+texGreen = SubResource("GradientTexture2D_7hauv")
+
+[node name="Label" type="Label" parent="UI/SubViewportRight/Control/StatusBar"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Hello World"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Timer" type="Timer" parent="UI/SubViewportRight/Control/StatusBar"]
+wait_time = 0.5
+autostart = true
 
 [node name="Level" type="Node3D" parent="."]
 
@@ -117,6 +280,6 @@ shape = SubResource("BoxShape3D_i5rua")
 
 [node name="Timer" type="Timer" parent="Spawner"]
 wait_time = 10.0
-autostart = true
 
+[connection signal="timeout" from="UI/SubViewportRight/Control/StatusBar/Timer" to="UI/SubViewportRight/Control/StatusBar" method="_on_timer_timeout"]
 [connection signal="timeout" from="Spawner/Timer" to="Spawner" method="_on_timer_timeout"]

@@ -1,10 +1,10 @@
-[gd_scene load_steps=15 format=3 uid="uid://dm203r8m7jf1i"]
+[gd_scene load_steps=12 format=3 uid="uid://dm203r8m7jf1i"]
 
 [ext_resource type="Script" path="res://scenes/blackHole/black_hole.gd" id="1_wj1lh"]
 [ext_resource type="PackedScene" uid="uid://dvdcbcut5124a" path="res://scenes/explosion/Explosion.tscn" id="2_lm8dx"]
 [ext_resource type="Script" path="res://scenes/blackHole/StaticBody3d.gd" id="3_cwcjd"]
-[ext_resource type="Shader" path="res://scenes/blackHole/black_hole.gdshader" id="3_kg0qg"]
 [ext_resource type="Shader" path="res://scenes/blackHole/distort.gdshader" id="3_r4hbg"]
+[ext_resource type="PackedScene" uid="uid://wwrrj81lvgrj" path="res://objects/black_hole.tscn" id="5_4ji37"]
 
 [sub_resource type="Curve" id="Curve_ov305"]
 min_value = -1.0
@@ -30,29 +30,15 @@ shader_parameter/curve = SubResource("CurveTexture_760xa")
 shader_parameter/strength = 0.256
 shader_parameter/strengthMult = 1.0
 
-[sub_resource type="CylinderShape3D" id="CylinderShape3D_2o1nx"]
-height = 0.5
-radius = 1.0
-
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_boyua"]
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_gp0em"]
-seamless = true
-as_normal_map = true
-noise = SubResource("FastNoiseLite_boyua")
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_16e57"]
-render_priority = 0
-shader = ExtResource("3_kg0qg")
-shader_parameter/baseColorRGB = Color(0.329412, 0, 0.203922, 1)
-shader_parameter/noiseTexture = SubResource("NoiseTexture2D_gp0em")
-shader_parameter/speed = 0.637
+[sub_resource type="SphereShape3D" id="SphereShape3D_etmwf"]
+radius = 0.985
 
 [node name="BlackHole" type="Node3D"]
 script = ExtResource("1_wj1lh")
 explosionScene = ExtResource("2_lm8dx")
 
 [node name="ColorRect" type="ColorRect" parent="."]
+visible = false
 material = SubResource("ShaderMaterial_j2nh2")
 offset_left = -218.0
 offset_top = -48.0
@@ -63,11 +49,12 @@ offset_bottom = 382.0
 script = ExtResource("3_cwcjd")
 
 [node name="CollisionShape3d" type="CollisionShape3D" parent="StaticBody3d"]
-shape = SubResource("CylinderShape3D_2o1nx")
+shape = SubResource("SphereShape3D_etmwf")
 
-[node name="CsgTorus3d" type="CSGTorus3D" parent="StaticBody3d"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
-inner_radius = 0.272
-sides = 25
-ring_sides = 10
-material = SubResource("ShaderMaterial_16e57")
+[node name="black_hole" parent="StaticBody3d" instance=ExtResource("5_4ji37")]
+transform = Transform3D(0.658, 0, 0, 0, 0.658, 0, 0, 0, 0.658, 0, 0, 0)
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 10.0
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

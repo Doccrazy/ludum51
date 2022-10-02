@@ -5,10 +5,11 @@ signal hit
 # Converts mouse movement (pixels) to rotation (radians).
 const MOUSE_SENSITIVITY = 0.03
 
-const THRUST_FORWARD = 4
+const THRUST_FORWARD = 6
 const THRUST_BACK = 0.2
 const THRUST_SIDE = 1
 const MAX_HEALTH = 100
+const SHOCKWAVE_IMPULSE = 1;
 
 var health = MAX_HEALTH
 
@@ -58,8 +59,15 @@ func _physics_process(delta):
 #	print(localAngular.z)
 #	angular_velocity = global_transform.basis * Vector3(localAngular.x, localAngular.y, localAngular.z * 0.9)
 
-func _on_hit(damage: float):
+func _on_hit(damage: float, cause: RigidBody3D):
 	get_node("Camera").shake(damage/MAX_HEALTH)
 	#health -= damage
 	if health <= 0:
 		queue_free()
+
+func onShockwaveHit():
+	$/root/Root/UI/DistortionOverlay.showOverlay()
+	apply_torque_impulse(Vector3((randf() - 0.5) * SHOCKWAVE_IMPULSE, (randf() - 0.5) * SHOCKWAVE_IMPULSE, (randf() - 0.5) * SHOCKWAVE_IMPULSE))
+
+func getHealth():
+	return health / MAX_HEALTH
