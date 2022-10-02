@@ -1,0 +1,14 @@
+[gd_scene load_steps=4 format=3 uid="uid://8mds1nj4ovhu"]
+
+[ext_resource type="Script" path="res://scenes/asteroidField/AsteroidField.gd" id="1_kw2h5"]
+[ext_resource type="PackedScene" uid="uid://cxhemibcb7ufq" path="res://objects/asteroid_1.tscn" id="2_cugd6"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_mg0mi"]
+
+[node name="AsteroidField" type="Area3D"]
+script = ExtResource("1_kw2h5")
+asteroidScene = ExtResource("2_cugd6")
+amount = 20
+
+[node name="CollisionShape3d" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_mg0mi")

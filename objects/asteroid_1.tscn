@@ -1,0 +1,27 @@
+[gd_scene load_steps=7 format=3 uid="uid://cxhemibcb7ufq"]
+
+[ext_resource type="PackedScene" uid="uid://bf7ydbon4d6kh" path="res://objects/asteroid1.gltf" id="1_8ouud"]
+[ext_resource type="Texture2D" uid="uid://dkdwo5js3av5p" path="res://materials/asteroid1_color.png" id="2_cidwd"]
+[ext_resource type="Texture2D" uid="uid://dhx6c2jxrj388" path="res://materials/asteroid1_normal.png" id="3_v2i5v"]
+[ext_resource type="Texture2D" uid="uid://d0m7hetjxjdlo" path="res://materials/asteroid1_roughness.png" id="4_uc325"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_o2j06"]
+albedo_texture = ExtResource("2_cidwd")
+roughness_texture = ExtResource("4_uc325")
+normal_enabled = true
+normal_texture = ExtResource("3_v2i5v")
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_amfpc"]
+radius = 1.08471
+height = 3.47708
+
+[node name="asteroid1" instance=ExtResource("1_8ouud")]
+
+[node name="rock" parent="." index="0"]
+surface_material_override/0 = SubResource("StandardMaterial3D_o2j06")
+
+[node name="StaticBody3d" type="StaticBody3D" parent="." index="1"]
+
+[node name="CollisionShape3d" type="CollisionShape3D" parent="StaticBody3d" index="0"]
+transform = Transform3D(0.980478, 0.196631, 0, -0.196631, 0.980478, 0, 0, 0, 1, 0.333177, -0.0732613, -0.212072)
+shape = SubResource("CapsuleShape3D_amfpc")

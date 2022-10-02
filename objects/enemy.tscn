@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3 uid="uid://fygv8gsgk6no"]
+
+[ext_resource type="PackedScene" uid="uid://i1fjmes46j4r" path="res://openscad/Enemy.glb" id="1_ucy7u"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_474so"]
+albedo_color = Color(0, 0.803922, 0.270588, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_honoc"]
+albedo_color = Color(0.772549, 1, 1, 1)
+metallic = 0.77
+roughness = 0.14
+emission_enabled = true
+emission = Color(0.341176, 0.541176, 1, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ut347"]
+albedo_color = Color(0.996078, 0, 0.152941, 1)
+
+[node name="Enemy" instance=ExtResource("1_ucy7u")]
+transform = Transform3D(-1, 1.50996e-07, 6.60024e-15, 0, -4.37114e-08, 1, -1.50996e-07, -1, -4.37114e-08, 0, 0, 0)
+
+[node name="Mesh2" parent="." index="0"]
+surface_material_override/0 = SubResource("StandardMaterial3D_474so")
+
+[node name="Mesh32" parent="." index="1"]
+surface_material_override/0 = SubResource("StandardMaterial3D_honoc")
+
+[node name="Mesh42" parent="." index="2"]
+surface_material_override/0 = SubResource("StandardMaterial3D_ut347")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://dgjh4qkfxk3sr"]
+[gd_scene load_steps=15 format=3 uid="uid://dgjh4qkfxk3sr"]
 
 [ext_resource type="Texture2D" uid="uid://b5dpa7jf68644" path="res://assets/panorama_image.png" id="1_1xr12"]
 [ext_resource type="Script" path="res://scripts/Player.gd" id="2_g8n0y"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" path="res://scripts/FPSCounter.gd" id="4_r6i1x"]
 [ext_resource type="PackedScene" uid="uid://b1yy5civq61ss" path="res://scenes/enemy/Enemy.tscn" id="5_or85d"]
 [ext_resource type="Script" path="res://scripts/Spawner.gd" id="6_s31hl"]
+[ext_resource type="PackedScene" uid="uid://8mds1nj4ovhu" path="res://scenes/asteroidField/asteroid_field.tscn" id="10_5y541"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_34034"]
 panorama = ExtResource("1_1xr12")
@@ -33,7 +34,7 @@ environment = SubResource("Environment_kwuor")
 [node name="Player" type="RigidBody3D" parent="."]
 transform = Transform3D(0.256475, 0, 0.966551, 0, 1, 0, -0.966551, 0, 0.256475, 0, 0, 0)
 can_sleep = false
-angular_damp = 100.0
+angular_damp = 1.0
 script = ExtResource("2_g8n0y")
 
 [node name="Camera" type="Camera3D" parent="Player"]
@@ -41,9 +42,9 @@ script = ExtResource("3_os7xn")
 
 [node name="SpotLight3d" type="SpotLight3D" parent="Player"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.499354, 0)
-light_energy = 2.556
+light_energy = 5.0
 shadow_enabled = true
-spot_range = 25.0
+spot_range = 50.0
 spot_angle = 31.15
 
 [node name="Weapons" type="Node3D" parent="Player"]
@@ -72,32 +73,27 @@ script = ExtResource("4_r6i1x")
 
 [node name="Level" type="Node3D" parent="."]
 
-[node name="CsgSphere3d" type="CSGSphere3D" parent="Level"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.13184, 1.33618, 0)
+[node name="AsteroidField1" parent="Level" instance=ExtResource("10_5y541")]
+transform = Transform3D(37.241, 0, 0, 0, 37.241, 0, 0, 0, 37.241, 2.17769, 3.88524, -24.9481)
 
-[node name="CsgSphere3d2" type="CSGSphere3D" parent="Level"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.2637, 2.67235, 0)
+[node name="AsteroidField2" parent="Level" instance=ExtResource("10_5y541")]
+transform = Transform3D(52.397, 0, 0, 0, 52.397, 0, 0, 0, 52.397, -62.2806, 3.88524, 1.4029)
 
-[node name="CsgSphere3d3" type="CSGSphere3D" parent="Level"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.53214, 1.33618, 0)
+[node name="AsteroidField3" parent="Level" instance=ExtResource("10_5y541")]
+transform = Transform3D(100, 0, 0, 0, 100, 0, 0, 0, 100, -84.006, -20.969, 76.666)
+minSize = 2.0
+maxSize = 5
 
-[node name="CsgSphere3d4" type="CSGSphere3D" parent="Level"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.13184, 1.33618, 1.66446)
+[node name="AsteroidField4" parent="Level" instance=ExtResource("10_5y541")]
+transform = Transform3D(37.241, 0, 0, 0, 77.8641, 0, 0, 0, 592.762, 64.4542, 2.83893, 0.529482)
+amount = 50
+maxSize = 5
 
-[node name="CsgSphere3d5" type="CSGSphere3D" parent="Level"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.71196, 1.33618, -7.89178)
-
-[node name="CsgSphere3d6" type="CSGSphere3D" parent="Level"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.37374, 1.33618, -7.12561)
-
-[node name="CsgSphere3d7" type="CSGSphere3D" parent="Level"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.02348, 3.00227, -3.64931)
-
-[node name="CsgSphere3d8" type="CSGSphere3D" parent="Level"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.3548, -1.90126, -2.88216)
-
-[node name="CsgSphere3d9" type="CSGSphere3D" parent="Level"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.13184, -1.99261, -5.63024)
+[node name="AsteroidField5" parent="Level" instance=ExtResource("10_5y541")]
+transform = Transform3D(237.795, 0, 0, 0, 77.8641, 0, 0, 0, 592.762, -168.679, 180.112, 0.529482)
+amount = 50
+minSize = 5.0
+maxSize = 10
 
 [node name="DirectionalLight3d" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.999369, -0.00748875, -0.0347157, -0.000144081, -0.978362, 0.206901, -0.035514, -0.206765, -0.977746, 0, 0, 0)

@@ -1,9 +1,11 @@
-[gd_scene load_steps=10 format=3 uid="uid://b1yy5civq61ss"]
+[gd_scene load_steps=12 format=3 uid="uid://b1yy5civq61ss"]
 
 [ext_resource type="Script" path="res://scenes/enemy/Timer.gd" id="1_gexk5"]
 [ext_resource type="Script" path="res://scenes/enemy/Enemy.gd" id="1_h8ed6"]
+[ext_resource type="PackedScene" uid="uid://dvdcbcut5124a" path="res://scenes/explosion/Explosion.tscn" id="2_k6qfv"]
 [ext_resource type="PackedScene" uid="uid://dn3gmvoqaq15w" path="res://scenes/launcher/Launcher.tscn" id="3_iolqd"]
 [ext_resource type="PackedScene" uid="uid://blovdjxkd0yhe" path="res://scenes/laser/Laser.tscn" id="4_a7kuc"]
+[ext_resource type="PackedScene" uid="uid://fygv8gsgk6no" path="res://objects/enemy.tscn" id="6_8oqec"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jxvcj"]
 albedo_color = Color(0.584314, 0.752941, 0.752941, 1)
@@ -29,8 +31,10 @@ size = Vector3(1.153, 0.516, 1.625)
 [node name="Enemy" type="RigidBody3D"]
 angular_damp = 5.0
 script = ExtResource("1_h8ed6")
+explosionScene = ExtResource("2_k6qfv")
 
 [node name="CsgCombiner3d3" type="CSGCombiner3D" parent="."]
+visible = false
 
 [node name="CsgCombiner3d2" type="CSGCombiner3D" parent="CsgCombiner3d3"]
 
@@ -126,3 +130,8 @@ projectile = ExtResource("4_a7kuc")
 
 [node name="CollisionShape3d" type="CollisionShape3D" parent="."]
 shape = SubResource("BoxShape3D_xty0g")
+
+[node name="Model" type="Node3D" parent="."]
+transform = Transform3D(-0.593, 0, -5.18417e-08, 0, 0.593, 0, 5.18417e-08, 0, -0.593, 0, 0, 0)
+
+[node name="Enemy" parent="Model" instance=ExtResource("6_8oqec")]

@@ -1,0 +1,19 @@
+*.egg-info
+*.pyc
+*.directory
+*.save
+
+dist/
+build/
+bundle.js
+
+#KDE files
+*.kate-swp
+*.backup
+
+# VSC files
+.vscode/
+
+#virtual environments
+.venv
+

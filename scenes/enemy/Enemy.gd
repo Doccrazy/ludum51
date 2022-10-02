@@ -1,5 +1,7 @@
 extends RigidBody3D
 
+@export var explosionScene: PackedScene
+
 signal hit
 
 const ROTATE_SPEED = 1.5
@@ -24,7 +26,7 @@ func _process(delta):
 	pass
 
 func _physics_process(delta):
-	var player = get_node("/root/Root/Player") as RigidBody3D
+	var player = get_node_or_null("/root/Root/Player") as RigidBody3D
 	if !player:
 		return
 	
@@ -55,4 +57,7 @@ func _physics_process(delta):
 func _on_hit(damage: float):
 	health -= damage
 	if health <= 0:
+		var explosion = explosionScene.instantiate()
+		explosion.position = global_transform.origin
+		$/root/Root.add_child(explosion)
 		queue_free()
